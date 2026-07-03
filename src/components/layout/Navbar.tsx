@@ -23,6 +23,11 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { scrollY } = useScroll();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50);
@@ -36,7 +41,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
-          ? "py-4 bg-background/70 backdrop-blur-md border-b border-border/50 shadow-sm"
+          ? "py-4 bg-background/90 backdrop-blur-md border-b border-border/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)]"
           : "py-6 bg-transparent"
       )}
     >
@@ -80,7 +85,9 @@ export function Navbar() {
             className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-muted transition-colors interactive"
             aria-label="Toggle Theme"
           >
-            <span className="text-xl">{theme === "dark" ? "🌞" : "🌙"}</span>
+            <span className="text-xl opacity-80 hover:opacity-100 transition-opacity">
+              {mounted ? (theme === "dark" ? "🌞" : "🌙") : " "}
+            </span>
           </button>
           <Button variant="outline" size="sm" className="interactive">
             Resume

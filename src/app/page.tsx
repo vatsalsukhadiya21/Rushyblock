@@ -3,120 +3,124 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { PageTransition } from "@/components/ui/PageTransition";
-import { ArrowRight, Sparkles, Code2, MonitorSmartphone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { GlassCard } from "@/components/ui/GlassCard";
 
 export default function Home() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { type: "spring", stiffness: 100, damping: 20, mass: 1 },
+  };
+
   const stagger = {
     animate: {
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
       },
     },
-  };
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, ease: "easeOut" },
   };
 
   return (
     <PageTransition>
       <div className="w-full flex flex-col items-center">
         {/* Hero Section */}
-        <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-6 text-center">
+        <section className="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto">
           <motion.div
             variants={stagger}
             initial="initial"
             animate="animate"
-            className="max-w-4xl flex flex-col items-center z-10"
+            className="max-w-5xl z-10"
           >
-            <motion.div
-              variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8 text-sm font-medium text-primary"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Building the Future of the Web</span>
+            <motion.div variants={fadeInUp} className="mb-6">
+              <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+                Frontend Engineering
+              </span>
             </motion.div>
 
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter font-heading mb-6 leading-[1.1]"
+              className="text-5xl md:text-7xl lg:text-[7rem] font-bold tracking-tight font-heading mb-8 leading-[1]"
             >
-              Crafting Digital{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Experiences
-              </span>
+              Building digital <br className="hidden md:block" />
+              experiences with <br className="hidden md:block" />
+              uncompromising precision.
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
-              className="text-lg md:text-2xl text-muted-foreground mb-10 max-w-2xl leading-relaxed"
+              className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl leading-relaxed"
             >
-              I build exceptional and accessible digital experiences that are fast, intuitive, and meticulously designed.
+              I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-6">
               <Link href="/showcase" className="interactive">
-                <Button size="lg" className="w-full sm:w-auto">
-                  View Projects <ArrowRight className="w-5 h-5" />
+                <Button size="lg">
+                  View Selected Work
                 </Button>
               </Link>
-              <Link href="/contact" className="interactive">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Contact Me
-                </Button>
+              <Link href="/contact" className="interactive group flex items-center justify-center sm:justify-start gap-2 text-foreground font-medium hover:text-primary transition-colors">
+                Contact Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
           </motion.div>
         </section>
 
-        {/* Feature Highlights - Scroll Storytelling */}
-        <section className="w-full py-32 px-6">
-          <div className="container mx-auto">
+        {/* Feature Highlights - Structural Asymmetry */}
+        <section className="w-full py-32 px-6 md:px-12 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1 }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              transition={{ duration: 0.8 }}
+              className="md:col-span-5 md:sticky md:top-32"
             >
+              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight leading-[1.1] mb-6">
+                Technical <br /> Philosophy
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                A robust foundation enables extraordinary experiences. We prioritize semantic structure, minimal dependency overhead, and strictly typed architectures to deliver interfaces that feel alive without compromising stability.
+              </p>
+            </motion.div>
+
+            <div className="md:col-span-6 md:col-start-7 flex flex-col gap-16">
               {[
                 {
-                  title: "Modern Frontend",
-                  desc: "Expertise in React, Next.js, and modern state management tools.",
-                  icon: <Code2 className="w-6 h-6 text-primary" />,
+                  title: "Performance First",
+                  desc: "React Server Components and edge rendering strategies ensure immediate interactivity.",
+                  number: "01"
                 },
                 {
-                  title: "Premium Design",
-                  desc: "Pixel-perfect implementation with Framer Motion and Tailwind CSS.",
-                  icon: <Sparkles className="w-6 h-6 text-secondary" />,
+                  title: "Fluid Motion",
+                  desc: "Physics-based interpolation and spring dynamics replace rigid CSS transitions.",
+                  number: "02"
                 },
                 {
-                  title: "Responsive",
-                  desc: "Flawless experiences across all devices and screen sizes.",
-                  icon: <MonitorSmartphone className="w-6 h-6 text-primary" />,
+                  title: "Design Systems",
+                  desc: "Scalable, token-driven architectures that maintain absolute consistency.",
+                  number: "03"
                 },
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.2 }}
+                  transition={{ type: "spring", stiffness: 100, damping: 20, delay: idx * 0.1 }}
+                  className="flex gap-6 items-start group"
                 >
-                  <GlassCard className="h-full flex flex-col gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-2">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-xl font-bold font-heading">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.desc}</p>
-                  </GlassCard>
+                  <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-foreground transition-colors">
+                    {feature.number}
+                  </span>
+                  <div>
+                    <h3 className="text-xl font-bold font-heading mb-3">{feature.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
+                  </div>
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
       </div>
