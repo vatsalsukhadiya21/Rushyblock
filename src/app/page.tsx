@@ -96,14 +96,21 @@ export default function Home() {
           </ParallaxLayer>
         </section>
 
+        {/* Continuous Atmospheric Connector */}
+        <div className="w-full h-px relative z-10">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[50vh] bg-[radial-gradient(ellipse_at_top,rgba(62,219,240,0.03)_0%,transparent_70%)] pointer-events-none" />
+        </div>
+
         {/* Feature Highlights - Structural Asymmetry */}
-        <section className="w-full py-32 px-6 md:px-12 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
+        <section className="relative w-full py-32 px-6 md:px-12 max-w-7xl mx-auto z-20 -mt-24">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-background pointer-events-none -z-10" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start relative z-10">
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2, ease: premiumEasing }}
               className="md:col-span-5 md:sticky md:top-32"
             >
               <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight leading-[1.1] mb-6">
@@ -134,10 +141,10 @@ export default function Home() {
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ type: "spring", stiffness: 70, damping: 20, delay: idx * 0.1 }}
+                  transition={{ duration: 1, ease: premiumEasing, delay: idx * 0.15 }}
                   className="flex gap-6 items-start group cursor-default"
                 >
                   <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-foreground transition-colors">
