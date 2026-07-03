@@ -13,23 +13,24 @@ export default function Home() {
   const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
   const heroY = useTransform(scrollY, [0, 600], [0, 150]);
 
-  const premiumEasing = [0.16, 1, 0.3, 1] as const; // Cinematic, smooth ease-out
+  const premiumEasing = [0.16, 1, 0.3, 1] as const;
 
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 1.2, ease: premiumEasing }
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
     }
   };
 
-  const stagger = {
-    animate: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+  const itemVariants: any = {
+    initial: { opacity: 0, y: 40, scale: 0.98 },
+    animate: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: { type: "spring", stiffness: 300, damping: 30, mass: 0.8 }
+    }
   };
 
   return (
@@ -44,19 +45,19 @@ export default function Home() {
             >
               
               <motion.div
-                variants={stagger}
+                variants={containerVariants}
                 initial="initial"
                 animate="animate"
                 className="lg:col-span-7 flex flex-col items-start w-full"
               >
-                <motion.div variants={fadeInUp} className="mb-10">
+                <motion.div variants={itemVariants} className="mb-10">
                   <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
                     Frontend Engineering
                   </span>
                 </motion.div>
 
                 <motion.h1
-                  variants={fadeInUp}
+                  variants={itemVariants}
                   className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tight font-heading mb-10 leading-[1]"
                 >
                   Building digital <br className="hidden md:block" />
@@ -65,28 +66,31 @@ export default function Home() {
                 </motion.h1>
 
                 <motion.p
-                  variants={fadeInUp}
+                  variants={itemVariants}
                   className="text-lg md:text-xl text-muted-foreground mb-14 max-w-2xl leading-relaxed"
                 >
                   I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
                 </motion.p>
 
-                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+                <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
                   <Link href="/showcase" className="interactive w-full sm:w-auto">
                     <Button size="lg" className="w-full sm:w-auto">
                       View Selected Work
                     </Button>
                   </Link>
-                  <Link href="/contact" className="interactive group flex items-center justify-center gap-2 text-muted-foreground font-medium hover:text-foreground transition-colors h-14 px-4 w-full sm:w-auto">
-                    Contact Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <Link href="/contact" className="interactive group relative flex items-center justify-center gap-2 text-muted-foreground font-medium hover:text-foreground transition-colors duration-300 h-14 px-4 w-full sm:w-auto overflow-hidden">
+                    <span className="relative z-10">Contact Me</span> 
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative z-10" />
+                    <span className="absolute bottom-3 left-4 right-10 h-[2px] bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 rounded-full" />
                   </Link>
                 </motion.div>
               </motion.div>
 
               <motion.div
-                variants={fadeInUp}
+                variants={itemVariants}
                 initial="initial"
                 animate="animate"
+                transition={{ delay: 0.6 }} // Ensure visual enters after text completes
                 className="lg:col-span-5 flex justify-center lg:justify-end w-full"
               >
                 <HeroVisual />
@@ -105,21 +109,21 @@ export default function Home() {
         <section className="relative w-full py-32 px-6 md:px-12 max-w-7xl mx-auto z-20 -mt-24">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-background pointer-events-none -z-10" />
           
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: premiumEasing }}
-              className="md:col-span-5 md:sticky md:top-32"
-            >
-              <h2 className="text-3xl md:text-5xl font-heading font-bold tracking-tight leading-[1.1] mb-6">
+          <motion.div 
+            variants={containerVariants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start relative z-10"
+          >
+            <div className="md:col-span-5 md:sticky md:top-32">
+              <motion.h2 variants={itemVariants} className="text-3xl md:text-5xl font-heading font-bold tracking-tight leading-[1.1] mb-6">
                 Technical <br /> Philosophy
-              </h2>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              </motion.h2>
+              <motion.p variants={itemVariants} className="text-muted-foreground text-lg leading-relaxed">
                 A robust foundation enables extraordinary experiences. We prioritize semantic structure, minimal dependency overhead, and strictly typed architectures to deliver interfaces that feel alive without compromising stability.
-              </p>
-            </motion.div>
+              </motion.p>
+            </div>
 
             <div className="md:col-span-6 md:col-start-7 flex flex-col gap-16">
               {[
@@ -141,23 +145,29 @@ export default function Home() {
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 1, ease: premiumEasing, delay: idx * 0.15 }}
-                  className="flex gap-6 items-start group cursor-default"
+                  variants={itemVariants}
+                  whileHover={{ 
+                    y: -4, 
+                    scale: 1.02,
+                    rotateX: 2,
+                    rotateY: -1,
+                    boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
+                    backgroundColor: "rgba(255,255,255,0.03)"
+                  }}
+                  style={{ perspective: 1000 }}
+                  className="flex gap-6 items-start group cursor-default p-6 -m-6 rounded-2xl"
                 >
-                  <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-foreground transition-colors">
+                  <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-primary transition-colors duration-300">
                     {feature.number}
                   </span>
-                  <div>
+                  <div className="group-hover:translate-x-1 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
                     <h3 className="text-xl font-bold font-heading mb-3">{feature.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
                   </div>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </section>
       </div>
     </PageTransition>
