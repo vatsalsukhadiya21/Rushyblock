@@ -1,23 +1,33 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { ParallaxLayer } from "@/components/ui/ParallaxLayer";
+import { HeroVisual } from "@/components/ui/HeroVisual";
 
 export default function Home() {
+  const { scrollY } = useScroll();
+  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.1]);
+  const heroY = useTransform(scrollY, [0, 600], [0, 150]);
+
+  const premiumEasing = [0.16, 1, 0.3, 1] as const; // Cinematic, smooth ease-out
+
   const fadeInUp = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { type: "spring", stiffness: 100, damping: 20, mass: 1 },
+    initial: { opacity: 0, y: 30 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 1.2, ease: premiumEasing }
+    }
   };
 
   const stagger = {
     animate: {
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.2,
       },
     },
   };
@@ -26,46 +36,62 @@ export default function Home() {
     <PageTransition>
       <div className="w-full flex flex-col items-center">
         {/* Hero Section */}
-        <section className="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto">
-          <ParallaxLayer offset={15} className="z-10 relative">
-            <motion.div
-              variants={stagger}
-              initial="initial"
-              animate="animate"
-              className="max-w-5xl"
+        <section className="relative w-full min-h-[90vh] flex items-center px-6 md:px-12 max-w-7xl mx-auto py-24 lg:py-0">
+          <ParallaxLayer offset={15} className="z-10 relative w-full">
+            <motion.div 
+              style={{ opacity: heroOpacity, y: heroY }}
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full"
             >
-            <motion.div variants={fadeInUp} className="mb-6">
-              <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
-                Frontend Engineering
-              </span>
-            </motion.div>
+              
+              <motion.div
+                variants={stagger}
+                initial="initial"
+                animate="animate"
+                className="lg:col-span-7 flex flex-col items-start w-full"
+              >
+                <motion.div variants={fadeInUp} className="mb-10">
+                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+                    Frontend Engineering
+                  </span>
+                </motion.div>
 
-            <motion.h1
-              variants={fadeInUp}
-              className="text-5xl md:text-7xl lg:text-[7rem] font-bold tracking-tight font-heading mb-8 leading-[1]"
-            >
-              Building digital <br className="hidden md:block" />
-              experiences with <br className="hidden md:block" />
-              uncompromising precision.
-            </motion.h1>
+                <motion.h1
+                  variants={fadeInUp}
+                  className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tight font-heading mb-10 leading-[1]"
+                >
+                  Building digital <br className="hidden md:block" />
+                  experiences with <br className="hidden md:block" />
+                  uncompromising precision.
+                </motion.h1>
 
-            <motion.p
-              variants={fadeInUp}
-              className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl leading-relaxed"
-            >
-              I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
-            </motion.p>
+                <motion.p
+                  variants={fadeInUp}
+                  className="text-lg md:text-xl text-muted-foreground mb-14 max-w-2xl leading-relaxed"
+                >
+                  I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
+                </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-6">
-              <Link href="/showcase" className="interactive">
-                <Button size="lg">
-                  View Selected Work
-                </Button>
-              </Link>
-              <Link href="/contact" className="interactive group flex items-center justify-center sm:justify-start gap-2 text-foreground font-medium hover:text-primary transition-colors">
-                Contact Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
+                <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
+                  <Link href="/showcase" className="interactive w-full sm:w-auto">
+                    <Button size="lg" className="w-full sm:w-auto">
+                      View Selected Work
+                    </Button>
+                  </Link>
+                  <Link href="/contact" className="interactive group flex items-center justify-center gap-2 text-muted-foreground font-medium hover:text-foreground transition-colors h-14 px-4 w-full sm:w-auto">
+                    Contact Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
+              </motion.div>
+
+              <motion.div
+                variants={fadeInUp}
+                initial="initial"
+                animate="animate"
+                className="lg:col-span-5 flex justify-center lg:justify-end w-full"
+              >
+                <HeroVisual />
+              </motion.div>
+
             </motion.div>
           </ParallaxLayer>
         </section>

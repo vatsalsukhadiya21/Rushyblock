@@ -36,9 +36,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonContent = (
       <motion.button
         ref={ref}
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        transition={{ type: "spring", stiffness: 300, damping: 25, mass: 0.5 }}
+        whileHover={{ 
+          scale: 1.02, 
+          y: -2,
+          boxShadow: variant === "primary" ? "0 15px 35px -10px rgba(62,219,240,0.4)" : "0 10px 25px -10px rgba(0,0,0,0.1)"
+        }}
+        whileTap={{ scale: 0.97, y: 0 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.4 }}
         className={cn(
           "relative inline-flex items-center justify-center font-medium transition-colors overflow-hidden group",
           variants[variant],
