@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ParallaxLayer } from "@/components/ui/ParallaxLayer";
 
 export default function Home() {
   const fadeInUp = {
@@ -26,12 +27,13 @@ export default function Home() {
       <div className="w-full flex flex-col items-center">
         {/* Hero Section */}
         <section className="relative w-full min-h-[90vh] flex flex-col justify-center px-6 md:px-12 max-w-7xl mx-auto">
-          <motion.div
-            variants={stagger}
-            initial="initial"
-            animate="animate"
-            className="max-w-5xl z-10"
-          >
+          <ParallaxLayer offset={15} className="z-10 relative">
+            <motion.div
+              variants={stagger}
+              initial="initial"
+              animate="animate"
+              className="max-w-5xl"
+            >
             <motion.div variants={fadeInUp} className="mb-6">
               <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
                 Frontend Engineering
@@ -64,7 +66,8 @@ export default function Home() {
                 Contact Me <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
-          </motion.div>
+            </motion.div>
+          </ParallaxLayer>
         </section>
 
         {/* Feature Highlights - Structural Asymmetry */}
@@ -108,8 +111,8 @@ export default function Home() {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ type: "spring", stiffness: 100, damping: 20, delay: idx * 0.1 }}
-                  className="flex gap-6 items-start group"
+                  transition={{ type: "spring", stiffness: 70, damping: 20, delay: idx * 0.1 }}
+                  className="flex gap-6 items-start group cursor-default"
                 >
                   <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-foreground transition-colors">
                     {feature.number}

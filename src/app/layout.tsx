@@ -5,7 +5,9 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-
+import { CursorProvider } from "@/components/providers/CursorProvider";
+import { PremiumCursor } from "@/components/ui/PremiumCursor";
+import { AtmosphericBackground } from "@/components/ui/AtmosphericBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,12 +39,15 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SmoothScrollProvider>
-
-            <div className="relative flex min-h-screen flex-col overflow-hidden">
-              <Navbar />
-              <main className="flex-1 pt-24">{children}</main>
-              <Footer />
-            </div>
+            <CursorProvider>
+              <AtmosphericBackground />
+              <PremiumCursor />
+              <div className="relative flex min-h-screen flex-col overflow-hidden">
+                <Navbar />
+                <main className="flex-1 pt-24">{children}</main>
+                <Footer />
+              </div>
+            </CursorProvider>
           </SmoothScrollProvider>
         </ThemeProvider>
       </body>
