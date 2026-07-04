@@ -50,8 +50,8 @@ export default function Home() {
                 animate="animate"
                 className="lg:col-span-7 flex flex-col items-start w-full"
               >
-                <motion.div variants={itemVariants} className="mb-10">
-                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-widest">
+                <motion.div variants={itemVariants} className="mb-10 inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+                  <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em]">
                     Frontend Engineering
                   </span>
                 </motion.div>
@@ -148,14 +148,15 @@ export default function Home() {
                   variants={itemVariants}
                   whileHover={{ 
                     y: -4, 
-                    scale: 1.02,
+                    scale: 1.01,
                     rotateX: 2,
                     rotateY: -1,
-                    boxShadow: "0 20px 40px -15px rgba(0,0,0,0.3)",
-                    backgroundColor: "rgba(255,255,255,0.03)"
+                    boxShadow: "0 30px 60px -15px rgba(0,0,0,0.4)",
+                    backgroundColor: "rgba(255,255,255,0.04)",
+                    borderColor: "rgba(255,255,255,0.12)"
                   }}
                   style={{ perspective: 1000 }}
-                  className="flex gap-6 items-start group cursor-default p-6 -m-6 rounded-2xl"
+                  className="flex gap-6 items-start group cursor-default p-8 rounded-2xl bg-white/[0.01] border border-white/[0.04] shadow-[0_8px_30px_rgba(0,0,0,0.1)] transition-colors duration-500"
                 >
                   <span className="text-sm font-medium text-muted-foreground font-mono mt-1 group-hover:text-primary transition-colors duration-300">
                     {feature.number}

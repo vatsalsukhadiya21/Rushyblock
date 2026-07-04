@@ -21,16 +21,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const variants = {
-      primary: "bg-primary text-background hover:bg-primary/90 shadow-sm",
-      secondary: "bg-secondary text-background hover:bg-secondary/90 shadow-sm",
-      outline: "border border-border text-foreground hover:bg-muted transition-colors",
-      ghost: "text-foreground hover:bg-muted transition-colors",
+      primary: "bg-primary text-background shadow-[0_4px_20px_rgba(62,219,240,0.15)] ring-1 ring-primary/50",
+      secondary: "bg-white/5 text-foreground hover:bg-white/10 border border-white/10 shadow-sm",
+      outline: "border border-white/10 text-foreground hover:bg-white/5 transition-colors",
+      ghost: "text-foreground hover:bg-white/5 transition-colors",
     };
 
     const sizes = {
-      sm: "h-9 px-4 text-sm rounded-md",
-      md: "h-11 px-8 text-base rounded-lg",
-      lg: "h-14 px-10 text-lg rounded-xl",
+      sm: "h-9 px-5 text-sm rounded-full",
+      md: "h-11 px-8 text-base rounded-full",
+      lg: "h-14 px-10 text-lg rounded-full",
     };
 
     const buttonContent = (
