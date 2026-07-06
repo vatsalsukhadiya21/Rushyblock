@@ -9,28 +9,34 @@ import { BookOpen, Code, Database, Globe } from "lucide-react";
 
 const journeyData = [
   {
-    year: "2021",
-    title: "The Beginning",
-    description: "Started learning HTML, CSS, and basic JavaScript. Built simple static pages and learned about web accessibility.",
+    phase: "Phase 1",
+    title: "intro Arbitrum",
+    description: "Initial introduction to the Arbitrum ecosystem and understanding layer 2 scaling solutions.",
     icon: <Globe className="w-6 h-6 text-primary" />,
   },
   {
-    year: "2022",
-    title: "Frontend Frameworks",
-    description: "Dove deep into React.js. Learned about component lifecycles, hooks, and state management with Redux and Context API.",
+    phase: "Phase 2",
+    title: "Block chain",
+    description: "Deep dive into core blockchain principles, consensus mechanisms, and decentralized networks.",
+    icon: <Database className="w-6 h-6 text-secondary" />,
+  },
+  {
+    phase: "Phase 3",
+    title: "Account creation",
+    description: "Exploring wallet integrations, secure account creation, and key management within dApps.",
+    icon: <Code className="w-6 h-6 text-primary" />,
+  },
+  {
+    phase: "Phase 4",
+    title: "Rust",
+    description: "Learning Rust programming language for high-performance and secure smart contract development.",
     icon: <Code className="w-6 h-6 text-secondary" />,
   },
   {
-    year: "2023",
-    title: "Fullstack Architecture",
-    description: "Transitioned to Next.js for SSR and SSG. Explored backend technologies, REST APIs, and database integration.",
-    icon: <Database className="w-6 h-6 text-primary" />,
-  },
-  {
-    year: "2024",
-    title: "Premium UX/UI Engineering",
-    description: "Mastered Framer Motion, Tailwind CSS, and advanced styling techniques to build cinematic, highly interactive web experiences.",
-    icon: <BookOpen className="w-6 h-6 text-secondary" />,
+    phase: "Phase 5",
+    title: "Certification",
+    description: "Validating knowledge and skills through official certification and practical assessments.",
+    icon: <BookOpen className="w-6 h-6 text-primary" />,
   },
 ];
 
@@ -85,7 +91,7 @@ export default function LearningJourney() {
                       <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
                       <div className="relative">
                         <span className="text-primary font-bold font-mono text-xl mb-2 block">
-                          {item.year}
+                          {item.phase}
                         </span>
                         <h3 className="text-2xl font-bold font-heading mb-4 text-foreground">
                           {item.title}

@@ -52,34 +52,34 @@ export default function Home() {
               >
                 <motion.div variants={itemVariants} className="mb-10 inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-                    Frontend Engineering
+                    Full Stack Engineering
                   </span>
                 </motion.div>
 
                 <motion.h1
                   variants={itemVariants}
-                  className="text-5xl md:text-6xl lg:text-[76px] font-bold tracking-tight font-heading mb-8 leading-[1.1]"
+                  className="text-4xl md:text-5xl lg:text-[60px] font-bold tracking-tight font-heading mb-8 leading-[1.1]"
                 >
-                  Building digital <br className="hidden md:block" />
-                  experiences with <br className="hidden md:block" />
-                  uncompromising precision.
+                  Journey of Learning <br />
+                  Blockchain & Rust <br />
+                  with <span className="text-primary">Arbitrum.</span>
                 </motion.h1>
 
                 <motion.p
                   variants={itemVariants}
                   className="text-lg md:text-xl lg:text-[22px] text-muted-foreground/90 mb-12 max-w-2xl leading-[1.7] font-light"
                 >
-                  I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
+                  Documenting my journey into Blockchain, Rust, and the Arbitrum ecosystem through hands-on projects, experiments, and continuous learning.
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
-                  <Link href="/showcase" className="interactive w-full sm:w-auto">
+                  <Link href="/learning-journey" className="interactive w-full sm:w-auto">
                     <Button size="lg" className="w-full sm:w-auto">
                       View Selected Work
                     </Button>
                   </Link>
                   <Link href="/contact" className="interactive group relative flex items-center justify-center gap-2 text-muted-foreground font-medium hover:text-foreground transition-colors duration-300 h-14 px-4 w-full sm:w-auto overflow-hidden">
-                    <span className="relative z-10">Contact Me</span> 
+                    <span className="relative z-10">About Me</span> 
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative z-10" />
                     <span className="absolute bottom-3 left-4 right-10 h-[2px] bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-300 rounded-full" />
                   </Link>
