@@ -6,13 +6,13 @@ import { motion, useSpring, useTransform } from "framer-motion";
 export function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // High-fidelity smooth cursor tracking
-  const mouseX = useSpring(0, { stiffness: 30, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 30, damping: 20 });
+  // High-fidelity smooth cursor tracking (spring for luxury feel)
+  const mouseX = useSpring(0, { stiffness: 40, damping: 25, mass: 0.5 });
+  const mouseY = useSpring(0, { stiffness: 40, damping: 25, mass: 0.5 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Use window center to avoid expensive layout thrashing from getBoundingClientRect on every mouse move
+      // Normalize mouse position between -1 and 1
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
       
@@ -27,100 +27,173 @@ export function HeroVisual() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  // Depth offsets
-  const fgX = useTransform(mouseX, [-1, 1], [-40, 40]);
-  const fgY = useTransform(mouseY, [-1, 1], [-40, 40]);
-  const mgX = useTransform(mouseX, [-1, 1], [-15, 15]);
-  const mgY = useTransform(mouseY, [-1, 1], [-15, 15]);
-  const bgX = useTransform(mouseX, [-1, 1], [-5, 5]);
-  const bgY = useTransform(mouseY, [-1, 1], [-5, 5]);
+  // Outer tilt (responds to cursor)
+  const rotateX = useTransform(mouseY, [-1, 1], [20, -20]);
+  const rotateY = useTransform(mouseX, [-1, 1], [-25, 25]);
+  
+  // Subtle float
+  const floatY = useSpring(0, { stiffness: 20, damping: 10 });
+  useEffect(() => {
+    let t = 0;
+    const interval = setInterval(() => {
+      t += 0.05;
+      floatY.set(Math.sin(t) * 15);
+    }, 50);
+    return () => clearInterval(interval);
+  }, [floatY]);
+
+  const CUBE_SIZE = 180;
+  const HALF = CUBE_SIZE / 2;
+
+  const faces = [
+    { name: "front", rotate: "rotateY(0deg)", isFront: true },
+    { name: "back", rotate: "rotateY(180deg)" },
+    { name: "left", rotate: "rotateY(-90deg)" },
+    { name: "right", rotate: "rotateY(90deg)" },
+    { name: "top", rotate: "rotateX(90deg)" },
+    { name: "bottom", rotate: "rotateX(-90deg)" },
+  ];
 
   return (
     <div 
       ref={containerRef}
       className="relative w-full aspect-square max-w-[600px] flex items-center justify-center pointer-events-none mt-12 lg:mt-0"
-      style={{ perspective: 1500 }}
+      style={{ perspective: 1800 }}
     >
-      {/* 1. Massive Volumetric Background (Escapes container to blend with environment) */}
+      {/* Ambient Blue Glow Background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(62,219,240,0.15)_0%,transparent_60%)] blur-3xl mix-blend-screen" />
+
+      {/* Tiny Glowing Particles */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          animate={{ 
+            y: [0, Math.random() * -100 - 50], 
+            opacity: [0, 0.8, 0],
+            scale: [0, 1.5, 0]
+          }}
+          transition={{ 
+            duration: Math.random() * 3 + 2, 
+            repeat: Infinity, 
+            delay: Math.random() * 2,
+            ease: "easeInOut"
+          }}
+          className="absolute w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_2px_rgba(62,219,240,0.8)]"
+          style={{
+            left: `${30 + Math.random() * 40}%`,
+            top: `${60 + Math.random() * 20}%`,
+          }}
+        />
+      ))}
+
+      {/* Holographic Platform */}
       <motion.div 
-        style={{ x: bgX, y: bgY, willChange: "transform, opacity" }}
-        animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250%] h-[250%] flex items-center justify-center"
-      >
-        <div className="absolute w-[60%] h-[120%] bg-[radial-gradient(ellipse,rgba(62,219,240,0.15)_0%,transparent_70%)] rotate-45 mix-blend-screen blur-2xl" />
-        <div className="absolute w-[120%] h-[60%] bg-[radial-gradient(ellipse,rgba(62,219,240,0.12)_0%,transparent_70%)] rotate-45 mix-blend-screen blur-2xl" />
-        <div className="absolute w-[80%] h-[80%] bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,transparent_60%)] rounded-full mix-blend-screen blur-3xl" />
-      </motion.div>
-
-      {/* 2. The Intense Focal Point (Premium Centerpiece) */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-        <div className="w-3 h-3 bg-white rounded-full shadow-[0_0_100px_40px_rgba(62,219,240,0.8)] mix-blend-screen" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1px] h-[300px] bg-gradient-to-b from-transparent via-primary/50 to-transparent rotate-45 blur-[1px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent rotate-45 blur-[1px]" />
-      </div>
-
-      {/* Breathing Master Container with Edge Masking */}
-      {/* The mask makes the 3D object fade seamlessly into the background, removing the "isolated box" look */}
-      <motion.div
-        animate={{ y: [-20, 20, -20] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        style={{ rotateX, rotateY }}
         className="absolute inset-0 flex items-center justify-center"
-        style={{ 
-          transformStyle: "preserve-3d",
-          willChange: "transform"
-        }}
       >
-        {/* 3. Deep Neural Rings & Reflections (Midground) */}
-        <motion.div
-          style={{ x: mgX, y: mgY, transformStyle: "preserve-3d" }}
-          className="absolute inset-0 flex items-center justify-center"
+        <div 
+          className="w-[300px] h-[300px] border-[2px] border-primary/20 rounded-full flex items-center justify-center relative"
+          style={{ transform: `translateY(${HALF + 80}px) rotateX(80deg)`, transformStyle: "preserve-3d" }}
         >
-          <motion.div
-            animate={{ rotateX: [0, -360], rotateY: [0, 360], rotateZ: [0, 90] }}
-            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[120%] h-[120%]" 
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            {/* Cinematic Glass Panes cutting through space */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[30%] border-t border-b border-primary/20 bg-gradient-to-b from-primary/[0.05] to-transparent backdrop-blur-[4px]" style={{ transform: "rotateX(45deg) rotateY(45deg) translateZ(50px)" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30%] h-full border-l border-r border-white/10 bg-gradient-to-r from-white/[0.02] to-transparent backdrop-blur-[4px]" style={{ transform: "rotateX(-45deg) rotateY(-45deg) translateZ(-50px)" }} />
-            
-            {/* Ambient Concentric Rings */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] border border-primary/30 rounded-full" style={{ transform: "rotateX(75deg)" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] border border-white/10 rounded-full" style={{ transform: "rotateY(75deg)" }} />
-          </motion.div>
-        </motion.div>
-
-        {/* 4. Foreground Geometric Detail */}
-        <motion.div
-          style={{ x: fgX, y: fgY, transformStyle: "preserve-3d" }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <motion.div
-            animate={{ rotateX: [0, 360], rotateY: [0, -360], rotateZ: [0, -90] }}
-            transition={{ duration: 160, repeat: Infinity, ease: "linear" }}
-            className="absolute w-[150%] h-[150%]" 
-            style={{ transformStyle: "preserve-3d" }}
-          >
-            {/* Expansive Architectural Lines */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-primary/20" style={{ transform: "translateZ(100px)" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-white/10" style={{ transform: "translateZ(-100px)" }} />
-            
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-primary/10" style={{ transform: "rotateY(90deg) translateZ(100px)" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] border border-white/5" style={{ transform: "rotateX(90deg) translateZ(100px)" }} />
-
-            {/* Micro Floating Nodes */}
-            <div className="absolute top-[20%] left-[20%] w-1.5 h-1.5 bg-primary/40 shadow-[0_0_10px_rgba(62,219,240,1)]" style={{ transform: "translateZ(150px)" }} />
-            <div className="absolute bottom-[30%] right-[20%] w-2 h-2 bg-white/40 shadow-[0_0_15px_rgba(255,255,255,1)]" style={{ transform: "translateZ(-120px)" }} />
-            <div className="absolute top-[60%] right-[10%] w-1 h-1 bg-primary/30" style={{ transform: "rotateY(90deg) translateZ(120px)" }} />
-          </motion.div>
-        </motion.div>
-
+          <div className="absolute inset-2 border border-primary/40 rounded-full animate-ping" style={{ animationDuration: '4s' }} />
+          <div className="absolute inset-8 border border-primary/10 rounded-full" />
+          {/* Floor Reflection Glow */}
+          <div className="absolute inset-0 bg-primary/10 blur-2xl rounded-full" />
+        </div>
       </motion.div>
 
-      {/* Edge Fade Overlay (Replaces expensive CSS mask) */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,hsl(var(--background))_75%)] pointer-events-none z-[60]" />
+      {/* Outer Tilt Container */}
+      <motion.div
+        style={{ rotateX, rotateY, y: floatY, transformStyle: "preserve-3d" }}
+        className="absolute inset-0 flex items-center justify-center"
+      >
+        {/* Inner Continuous Rotation Container */}
+        <motion.div
+          animate={{ rotateY: [0, 360] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          style={{ transformStyle: "preserve-3d" }}
+          className="relative flex items-center justify-center"
+        >
+          
+          {/* Main Cube */}
+          {faces.map((face) => (
+            <div
+              key={face.name}
+              className="absolute flex items-center justify-center overflow-hidden bg-zinc-950/80 backdrop-blur-sm border-[1.5px] border-primary/50 shadow-[inset_0_0_40px_rgba(62,219,240,0.15),0_0_20px_rgba(62,219,240,0.2)]"
+              style={{
+                width: CUBE_SIZE,
+                height: CUBE_SIZE,
+                transform: `${face.rotate} translateZ(${HALF}px)`,
+                backfaceVisibility: "hidden"
+              }}
+            >
+              {/* Metallic Sheen */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/80 pointer-events-none" />
+              
+              {/* Circuit Panels */}
+              <div className="absolute inset-3 border border-primary/20" />
+              <div className="absolute inset-6 border border-primary/10" />
+              <div className="absolute top-0 left-1/2 w-[1px] h-full bg-primary/20" />
+              <div className="absolute left-0 top-1/2 h-[1px] w-full bg-primary/20" />
+              <div className="absolute top-3 left-3 w-2 h-2 bg-primary/60 shadow-[0_0_8px_rgba(62,219,240,1)]" />
+              <div className="absolute bottom-3 right-3 w-2 h-2 bg-primary/60 shadow-[0_0_8px_rgba(62,219,240,1)]" />
+
+              {/* R Engraving on Face */}
+              <div 
+                className="relative z-10 text-[90px] font-black font-heading tracking-tighter"
+                style={{
+                  color: "transparent",
+                  WebkitTextStroke: "1px rgba(62,219,240,0.8)",
+                  background: "linear-gradient(135deg, #fff 0%, rgba(62,219,240,0.8) 50%, transparent 100%)",
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  filter: "drop-shadow(0px 0px 15px rgba(62,219,240,0.8))"
+                }}
+              >
+                R
+              </div>
+            </div>
+          ))}
+
+          {/* Small Orbiting Cubes */}
+          {[1, 2, 3].map((i) => {
+            const orbitSize = 250;
+            const size = 20;
+            return (
+              <motion.div
+                key={`small-cube-${i}`}
+                animate={{ rotateY: [0, -360], rotateX: [0, 360] }}
+                transition={{ duration: 15 + i * 5, repeat: Infinity, ease: "linear" }}
+                className="absolute flex items-center justify-center"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div
+                  className="absolute"
+                  style={{
+                    width: size,
+                    height: size,
+                    transform: `rotateY(${i * 120}deg) translateZ(${orbitSize}px)`,
+                    transformStyle: "preserve-3d"
+                  }}
+                >
+                  {/* Small cube faces */}
+                  {["rotateY(0deg)", "rotateY(180deg)", "rotateY(-90deg)", "rotateY(90deg)", "rotateX(90deg)", "rotateX(-90deg)"].map((rot, idx) => (
+                    <div
+                      key={idx}
+                      className="absolute w-full h-full bg-primary/10 border border-primary/50 shadow-[0_0_10px_rgba(62,219,240,0.5)]"
+                      style={{ transform: `${rot} translateZ(${size/2}px)` }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+
+        </motion.div>
+      </motion.div>
+      
+      {/* Vignette Overlay for smooth blending into background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,hsl(var(--background))_80%)] pointer-events-none z-[60]" />
     </div>
   );
 }
