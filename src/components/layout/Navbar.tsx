@@ -101,10 +101,10 @@ export function Navbar() {
               {mounted ? (theme === "dark" ? "🌞" : "🌙") : " "}
             </span>
           </button>
-          
-          <Button 
-            variant="primary" 
-            size="sm" 
+
+          <Button
+            variant="primary"
+            size="sm"
             className="interactive h-9 px-6 rounded-full text-sm font-semibold shadow-[0_0_20px_rgba(62,219,240,0.15)] hover:shadow-[0_0_25px_rgba(62,219,240,0.3)] transition-shadow"
           >
             Resume

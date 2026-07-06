@@ -12,13 +12,12 @@ export function HeroVisual() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+      // Use window center to avoid expensive layout thrashing from getBoundingClientRect on every mouse move
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
       
-      const offsetX = (e.clientX - centerX) / (window.innerWidth / 2);
-      const offsetY = (e.clientY - centerY) / (window.innerHeight / 2);
+      const offsetX = (e.clientX - centerX) / centerX;
+      const offsetY = (e.clientY - centerY) / centerY;
       
       mouseX.set(offsetX);
       mouseY.set(offsetY);
@@ -44,7 +43,7 @@ export function HeroVisual() {
     >
       {/* 1. Massive Volumetric Background (Escapes container to blend with environment) */}
       <motion.div 
-        style={{ x: bgX, y: bgY }}
+        style={{ x: bgX, y: bgY, willChange: "transform, opacity" }}
         animate={{ scale: [1, 1.1, 1], opacity: [0.6, 0.9, 0.6] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250%] h-[250%] flex items-center justify-center"
@@ -69,8 +68,7 @@ export function HeroVisual() {
         className="absolute inset-0 flex items-center justify-center"
         style={{ 
           transformStyle: "preserve-3d",
-          WebkitMaskImage: "radial-gradient(circle at center, black 20%, transparent 75%)",
-          maskImage: "radial-gradient(circle at center, black 20%, transparent 75%)" 
+          willChange: "transform"
         }}
       >
         {/* 3. Deep Neural Rings & Reflections (Midground) */}
@@ -120,6 +118,9 @@ export function HeroVisual() {
         </motion.div>
 
       </motion.div>
+
+      {/* Edge Fade Overlay (Replaces expensive CSS mask) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,hsl(var(--background))_75%)] pointer-events-none z-[60]" />
     </div>
   );
 }

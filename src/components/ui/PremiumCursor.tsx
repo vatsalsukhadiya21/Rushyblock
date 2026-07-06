@@ -7,8 +7,8 @@ import { useCursor } from "@/components/providers/CursorProvider";
 export function PremiumCursor() {
   const { cursorState, setCursorState } = useCursor();
 
-  // 120-180ms lag equivalent in framer-motion springs
-  const springConfig = { damping: 20, stiffness: 100, mass: 0.5 };
+  // Highly responsive spring configuration to eliminate cursor lag
+  const springConfig = { damping: 25, stiffness: 700, mass: 0.05 };
   const cursorX = useSpring(-100, springConfig);
   const cursorY = useSpring(-100, springConfig);
 

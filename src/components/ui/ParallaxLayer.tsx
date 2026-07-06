@@ -17,11 +17,9 @@ export function ParallaxLayer({ children, offset = 30, className = "" }: Paralla
   });
 
   const rawY = useTransform(scrollYProgress, [0, 1], [-offset, offset]);
-  // Apply a subtle spring to smooth out the scroll tie
-  const y = useSpring(rawY, { damping: 40, stiffness: 400, mass: 0.2 });
 
   return (
-    <motion.div ref={ref} style={{ y }} className={className}>
+    <motion.div ref={ref} style={{ y: rawY }} className={className}>
       {children}
     </motion.div>
   );
