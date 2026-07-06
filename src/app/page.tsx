@@ -41,14 +41,14 @@ export default function Home() {
           <ParallaxLayer offset={15} className="z-10 relative w-full">
             <motion.div 
               style={{ opacity: heroOpacity, y: heroY }}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center w-full"
             >
               
               <motion.div
                 variants={containerVariants}
                 initial="initial"
                 animate="animate"
-                className="lg:col-span-7 flex flex-col items-start w-full"
+                className="lg:col-span-7 flex flex-col items-start w-full lg:pr-8"
               >
                 <motion.div variants={itemVariants} className="mb-10 inline-flex items-center justify-center px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
                   <span className="text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em]">
@@ -58,7 +58,7 @@ export default function Home() {
 
                 <motion.h1
                   variants={itemVariants}
-                  className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold tracking-tight font-heading mb-10 leading-[1]"
+                  className="text-5xl md:text-6xl lg:text-[76px] font-bold tracking-tight font-heading mb-8 leading-[1.1]"
                 >
                   Building digital <br className="hidden md:block" />
                   experiences with <br className="hidden md:block" />
@@ -67,7 +67,7 @@ export default function Home() {
 
                 <motion.p
                   variants={itemVariants}
-                  className="text-lg md:text-xl text-muted-foreground mb-14 max-w-2xl leading-relaxed"
+                  className="text-lg md:text-xl lg:text-[22px] text-muted-foreground/90 mb-12 max-w-2xl leading-[1.7] font-light"
                 >
                   I design and engineer exceptional interfaces that balance aesthetics with high-performance execution. Every interaction, every pixel, deeply considered.
                 </motion.p>
