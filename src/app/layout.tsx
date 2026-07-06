@@ -20,7 +20,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Premium Frontend Portfolio",
+  title: "Rushyblock",
   description: "A showcase of modern frontend engineering.",
 };
 

@@ -51,15 +51,29 @@ export function Navbar() {
             : "w-full max-w-7xl h-14 rounded-none bg-transparent border-transparent shadow-none"
         )}
       >
-        <Link href="/" className="flex items-center gap-2 group interactive">
+        <Link href="/" className="flex items-center gap-2 group interactive" style={{ perspective: 400 }}>
           <motion.div
-            whileHover={{ rotate: 180, scale: 1.1 }}
+            whileHover={{ rotateY: 180, scale: 1.1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            className="flex items-center justify-center w-8 h-8 rounded-lg bg-foreground/5 border border-white/10"
+            className="relative w-8 h-8"
+            style={{ transformStyle: "preserve-3d" }}
           >
-            <Code2 className="w-4 h-4 text-foreground group-hover:text-primary transition-colors duration-300" />
+            {/* Front of block */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center rounded-lg bg-foreground/5 border border-white/10" 
+              style={{ backfaceVisibility: "hidden", transform: "rotateY(0deg)" }}
+            >
+              <span className="font-black text-[14px] text-foreground group-hover:text-primary transition-colors duration-300">R</span>
+            </div>
+            {/* Back of block */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center rounded-lg bg-primary/10 border border-primary/30" 
+              style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+            >
+              <span className="font-black text-[14px] text-primary">R</span>
+            </div>
           </motion.div>
-          <span className="font-bold text-[15px] tracking-tight group-hover:opacity-80 transition-opacity">Portfolio.</span>
+          <span className="font-bold text-[15px] tracking-tight group-hover:opacity-80 transition-opacity">Rushyblock.</span>
         </Link>
 
         {/* Desktop Nav */}
