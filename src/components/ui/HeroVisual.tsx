@@ -1,10 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 export function HeroVisual() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [particles, setParticles] = useState<{
+    id: number;
+    yEnd: number;
+    duration: number;
+    delay: number;
+    left: string;
+    top: string;
+  }[]>([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 12 }).map((_, i) => ({
+        id: i,
+        yEnd: Math.random() * -100 - 50,
+        duration: Math.random() * 3 + 2,
+        delay: Math.random() * 2,
+        left: `${30 + Math.random() * 40}%`,
+        top: `${60 + Math.random() * 20}%`,
+      }))
+    );
+  }, []);
   
   // High-fidelity smooth cursor tracking (spring for luxury feel)
   const mouseX = useSpring(0, { stiffness: 40, damping: 25, mass: 0.5 });
@@ -64,24 +85,24 @@ export function HeroVisual() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[radial-gradient(circle_at_center,rgba(62,219,240,0.15)_0%,transparent_60%)] blur-3xl mix-blend-screen" />
 
       {/* Tiny Glowing Particles */}
-      {[...Array(12)].map((_, i) => (
+      {particles.map((p) => (
         <motion.div
-          key={`particle-${i}`}
+          key={`particle-${p.id}`}
           animate={{ 
-            y: [0, Math.random() * -100 - 50], 
+            y: [0, p.yEnd], 
             opacity: [0, 0.8, 0],
             scale: [0, 1.5, 0]
           }}
           transition={{ 
-            duration: Math.random() * 3 + 2, 
+            duration: p.duration, 
             repeat: Infinity, 
-            delay: Math.random() * 2,
+            delay: p.delay,
             ease: "easeInOut"
           }}
           className="absolute w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_2px_rgba(62,219,240,0.8)]"
           style={{
-            left: `${30 + Math.random() * 40}%`,
-            top: `${60 + Math.random() * 20}%`,
+            left: p.left,
+            top: p.top,
           }}
         />
       ))}
