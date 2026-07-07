@@ -79,7 +79,7 @@ export default function Technologies() {
       <div className="container mx-auto px-6 py-24">
         <SectionHeading
           title="Learning Repository"
-          subtitle="A structured collection of concepts, seminars, workshops, and personal notes from my Blockchain & Rust learning journey."
+          subtitle="A structured collection of concepts, workshops, and technologies explored throughout my Web3 journey."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
