@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 import { PageTransition } from "@/components/ui/PageTransition";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -8,36 +9,33 @@ import { Blocks, Layers, Layout, Cpu, Globe2, Palette } from "lucide-react";
 
 const knowledgeAreas = [
   {
-    category: "Blockchain Fundamentals",
+    category: "Blockchain Foundations",
     items: [
-      { name: "What is Blockchain?", icon: <Blocks className="w-5 h-5 text-primary" /> },
-      { name: "What is Web3?", icon: <Globe2 className="w-5 h-5 text-secondary" /> },
-      { name: "Ethereum", icon: <Layers className="w-5 h-5 text-primary" /> },
-      { name: "Arbitrum", icon: <Cpu className="w-5 h-5 text-secondary" /> },
-      { name: "Smart Contracts", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
-      { name: "Gas Fees", icon: <Palette className="w-5 h-5 text-secondary" /> },
+      { name: "What is Blockchain?", description: "Understanding distributed ledgers", slug: "blockchain", icon: <Blocks className="w-5 h-5 text-primary" /> },
+      { name: "What is Web3?", description: "The decentralized internet", slug: "web3", icon: <Globe2 className="w-5 h-5 text-secondary" /> },
+      { name: "Ethereum", description: "Layer 1 Blockchain", slug: "ethereum", icon: <Layers className="w-5 h-5 text-primary" /> },
+      { name: "Arbitrum", description: "Ethereum Layer 2 Scaling", slug: "arbitrum", icon: <Cpu className="w-5 h-5 text-secondary" /> },
+      { name: "Smart Contracts", description: "Self-executing blockchain programs", slug: "smart-contracts", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
     ],
   },
   {
-    category: "Rust Programming",
+    category: "Rust Ecosystem",
     items: [
-      { name: "Ownership", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
-      { name: "Borrowing", icon: <Layers className="w-5 h-5 text-secondary" /> },
-      { name: "Lifetimes", icon: <Blocks className="w-5 h-5 text-primary" /> },
-      { name: "Structs", icon: <Layout className="w-5 h-5 text-secondary" /> },
-      { name: "Enums", icon: <Globe2 className="w-5 h-5 text-primary" /> },
-      { name: "Traits", icon: <Palette className="w-5 h-5 text-secondary" /> },
+      { name: "Ownership", description: "Rust memory management model", slug: "ownership", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
+      { name: "Borrowing", description: "Safe reference system", slug: "borrowing", icon: <Layers className="w-5 h-5 text-secondary" /> },
+      { name: "Lifetimes", description: "Reference validation", slug: "lifetimes", icon: <Blocks className="w-5 h-5 text-primary" /> },
+      { name: "Structs", description: "Custom data structures", slug: "structs", icon: <Layout className="w-5 h-5 text-secondary" /> },
+      { name: "Enums", description: "Multiple state representation", slug: "enums", icon: <Globe2 className="w-5 h-5 text-primary" /> },
     ],
   },
   {
-    category: "Seminar & Workshop Learnings",
+    category: "Learning Notes",
     items: [
-      { name: "Session 1", icon: <Layout className="w-5 h-5 text-primary" /> },
-      { name: "Session 2", icon: <Layout className="w-5 h-5 text-secondary" /> },
-      { name: "Rust Workshop", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
-      { name: "Blockchain Workshop", icon: <Blocks className="w-5 h-5 text-secondary" /> },
-      { name: "Key Takeaways", icon: <Layers className="w-5 h-5 text-primary" /> },
-      { name: "Resources", icon: <Globe2 className="w-5 h-5 text-secondary" /> },
+      { name: "Session 1", description: "Blockchain fundamentals seminar", slug: "session-1", icon: <Layout className="w-5 h-5 text-primary" /> },
+      { name: "Session 2", description: "Rust programming workshop", slug: "session-2", icon: <Layout className="w-5 h-5 text-secondary" /> },
+      { name: "Rust Workshop", description: "Hands-on coding exercises", slug: "rust-workshop", icon: <CodeIcon className="w-5 h-5 text-primary" /> },
+      { name: "Blockchain Workshop", description: "Building decentralized applications", slug: "blockchain-workshop", icon: <Blocks className="w-5 h-5 text-secondary" /> },
+      { name: "Key Takeaways", description: "Important concepts learned", slug: "key-takeaways", icon: <Layers className="w-5 h-5 text-primary" /> },
     ],
   },
 ];
@@ -80,8 +78,8 @@ export default function Technologies() {
     <PageTransition>
       <div className="container mx-auto px-6 py-24">
         <SectionHeading
-          title="Knowledge Hub"
-          subtitle="Documenting the learning journey."
+          title="Learning Repository"
+          subtitle="A structured collection of concepts, seminars, workshops, and personal notes from my Blockchain & Rust learning journey."
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
@@ -101,14 +99,19 @@ export default function Technologies() {
               <div className="flex flex-col gap-4">
                 {techGroup.items.map((item, i) => (
                   <motion.div key={i} variants={itemVariants}>
-                    <GlassCard className="p-5 flex flex-col gap-4 interactive cursor-pointer hover:bg-white/5 transition-colors">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                          {item.icon}
+                    <Link href={`/learning/${item.slug}`}>
+                      <GlassCard className="p-5 flex flex-col interactive cursor-pointer hover:bg-white/5 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+                            {item.icon}
+                          </div>
+                          <div className="flex flex-col min-w-0">
+                            <span className="font-semibold text-lg leading-tight">{item.name}</span>
+                            <span className="text-sm text-foreground/50 truncate mt-0.5">{item.description}</span>
+                          </div>
                         </div>
-                        <span className="font-semibold text-lg">{item.name}</span>
-                      </div>
-                    </GlassCard>
+                      </GlassCard>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
