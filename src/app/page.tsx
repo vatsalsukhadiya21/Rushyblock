@@ -60,16 +60,16 @@ export default function Home() {
                   variants={itemVariants}
                   className="text-4xl md:text-5xl lg:text-[60px] font-bold tracking-tight font-heading mb-8 leading-[1.1]"
                 >
-                  Journey of Learning <br />
-                  Blockchain & Rust <br />
-                  with <span className="text-primary">Arbitrum.</span>
+                  Documenting my journey <br />
+                  into Blockchain, Rust <br />
+                  and the <span className="text-primary">Arbitrum ecosystem.</span>
                 </motion.h1>
 
                 <motion.p
                   variants={itemVariants}
                   className="text-lg md:text-xl lg:text-[22px] text-muted-foreground/90 mb-12 max-w-2xl leading-[1.7] font-light"
                 >
-                  Documenting my journey into Blockchain, Rust, and the Arbitrum ecosystem through hands-on projects, experiments, and continuous learning.
+                  Rushyblock is my personal learning portfolio where I document concepts, workshop notes, projects, and experiments throughout my Blockchain and Rust journey.
                 </motion.p>
 
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 w-full sm:w-auto">
@@ -121,25 +121,25 @@ export default function Home() {
                 Technical <br /> Philosophy
               </motion.h2>
               <motion.p variants={itemVariants} className="text-muted-foreground text-lg leading-relaxed">
-                A robust foundation enables extraordinary experiences. We prioritize semantic structure, minimal dependency overhead, and strictly typed architectures to deliver interfaces that feel alive without compromising stability.
+                Every concept I learn is approached with curiosity, practical implementation, and continuous experimentation. My goal is not only to understand Blockchain and Rust, but also to apply them through real-world projects.
               </motion.p>
             </div>
 
             <div className="md:col-span-6 md:col-start-7 flex flex-col gap-16">
               {[
                 {
-                  title: "Performance First",
-                  desc: "React Server Components and edge rendering strategies ensure immediate interactivity.",
+                  title: "Blockchain Mindset",
+                  desc: "Understanding how decentralized systems establish trust, transparency, and security without relying on central authorities.",
                   number: "01"
                 },
                 {
-                  title: "Fluid Motion",
-                  desc: "Physics-based interpolation and spring dynamics replace rigid CSS transitions.",
+                  title: "Rust Thinking",
+                  desc: "Learning ownership, borrowing, memory safety, and efficient system programming through hands-on coding.",
                   number: "02"
                 },
                 {
-                  title: "Design Systems",
-                  desc: "Scalable, token-driven architectures that maintain absolute consistency.",
+                  title: "Hands-on Learning",
+                  desc: "Applying knowledge gained from seminars, workshops, documentation, and personal projects to strengthen practical understanding.",
                   number: "03"
                 },
               ].map((feature, idx) => (

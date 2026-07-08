@@ -12,19 +12,18 @@ export function Footer() {
       <div className="container mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex flex-col items-center md:items-start gap-2">
           <Link href="/" className="font-bold text-xl tracking-tight interactive">
-            Portfolio.
+            Rushyblock.
           </Link>
           <p className="text-sm text-muted-foreground">
-            Crafting premium digital experiences.
+            A personal knowledge hub documenting my journey through Blockchain, Rust, and the Arbitrum ecosystem.
           </p>
         </div>
 
         <div className="flex items-center gap-4">
           {[
-            { icon: GitBranch, href: "https://github.com" },
-            { icon: MessageCircle, href: "https://twitter.com" },
-            { icon: Briefcase, href: "https://linkedin.com" },
-            { icon: Mail, href: "mailto:hello@example.com" },
+            { icon: GitBranch, href: "https://github.com/vatsalsukhadiya21" },
+            { icon: Briefcase, href: "https://www.linkedin.com/in/vatsal-sukhadiya/" },
+            { icon: Mail, href: "mailto:whatscr4000@gmail.com" },
           ].map((social, i) => (
             <motion.a
               key={i}
@@ -41,7 +40,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border/50 py-6 text-center text-sm text-muted-foreground">
-        © {currentYear} John Doe. All rights reserved.
+        © 2026 Vatsal Sukhadiya.<br className="md:hidden" /> Built with Next.js, Tailwind CSS, and Framer Motion.
       </div>
     </footer>
   );
