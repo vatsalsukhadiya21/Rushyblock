@@ -5,15 +5,15 @@ import { PageTransition } from "@/components/ui/PageTransition";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { Button } from "@/components/ui/Button";
-import { Mail, MapPin, Send } from "lucide-react";
+import { Mail, MapPin, Send, GitBranch, Link } from "lucide-react";
 
 export default function Contact() {
   return (
     <PageTransition>
       <div className="container mx-auto px-6 py-24">
         <SectionHeading
-          title="Get In Touch"
-          subtitle="Interested in working together? Let's build something exceptional."
+          title="Contact Information"
+          subtitle="Thank you for visiting Rushyblock. If you have any questions, feedback, or professional opportunities, feel free to reach out."
         />
 
         <div className="max-w-4xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-5 gap-8">
@@ -25,10 +25,7 @@ export default function Contact() {
           >
             <GlassCard className="p-8 h-full flex flex-col gap-8">
               <div>
-                <h3 className="text-2xl font-bold font-heading mb-2">Contact Info</h3>
-                <p className="text-muted-foreground">
-                  I'm currently open for new opportunities.
-                </p>
+                <h3 className="text-2xl font-bold font-heading mb-2">Contact Details</h3>
               </div>
 
               <div className="flex flex-col gap-6">
@@ -38,8 +35,32 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <a href="mailto:hello@example.com" className="font-medium hover:text-primary transition-colors interactive">
-                      hello@example.com
+                    <a href="mailto:vatsalsukhadiya2107@gmail.com" className="font-medium hover:text-primary transition-colors interactive">
+                      vatsalsukhadiya2107@gmail.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <GitBranch className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">GitHub</p>
+                    <a href="https://github.com/vatsalsukhadiya21" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-primary transition-colors interactive">
+                      vatsalsukhadiya21
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                    <Link className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">LinkedIn</p>
+                    <a href="https://www.linkedin.com/in/vatsal-sukhadiya/" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-primary transition-colors interactive">
+                      vatsal-sukhadiya
                     </a>
                   </div>
                 </div>
@@ -50,7 +71,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="font-medium">San Francisco, CA</p>
+                    <p className="font-medium">Vadodara, Gujarat, India</p>
                   </div>
                 </div>
               </div>
