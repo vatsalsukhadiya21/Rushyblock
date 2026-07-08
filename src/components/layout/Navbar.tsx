@@ -6,8 +6,6 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X, Code2 } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/Button";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -22,7 +20,6 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const { scrollY } = useScroll();
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -105,25 +102,7 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors interactive"
-            aria-label="Toggle Theme"
-          >
-            <span className="text-[15px] opacity-70 hover:opacity-100 transition-opacity">
-              {mounted ? (theme === "dark" ? "🌞" : "🌙") : " "}
-            </span>
-          </button>
-
-          <Button
-            variant="primary"
-            size="sm"
-            className="interactive h-9 px-6 rounded-full text-sm font-semibold shadow-[0_0_20px_rgba(62,219,240,0.15)] hover:shadow-[0_0_25px_rgba(62,219,240,0.3)] transition-shadow"
-          >
-            Resume
-          </Button>
-        </div>
+        {/* Desktop elements removed */}
 
         {/* Mobile Toggle */}
         <button
@@ -156,20 +135,7 @@ export function Navbar() {
               {link.name}
             </Link>
           ))}
-          <div className="mt-2 pt-4 border-t border-white/10 flex items-center justify-between px-2">
-            <button
-              onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-                setIsMobileMenuOpen(false);
-              }}
-              className="py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Toggle Theme
-            </button>
-            <Button variant="primary" size="sm" className="rounded-full px-6">
-              Resume
-            </Button>
-          </div>
+          {/* Mobile elements removed */}
         </motion.div>
       )}
     </motion.header>

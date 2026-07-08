@@ -13,7 +13,7 @@ export default function Contact() {
       <div className="container mx-auto px-6 py-24">
         <SectionHeading
           title="Contact Information"
-          subtitle="Thank you for visiting Rushyblock. If you have any questions, feedback, or professional opportunities, feel free to reach out."
+          subtitle="Thank you for visiting Rushyblock. This website showcases my learning journey, projects, workshops, and technical exploration in Blockchain, Rust, and the Arbitrum ecosystem."
         />
 
         <div className="max-w-4xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-5 gap-8">
@@ -120,6 +120,9 @@ export default function Contact() {
                 <Button className="w-full mt-2 interactive">
                   Send Message <Send className="w-4 h-4 ml-2" />
                 </Button>
+                <p className="text-xs text-muted-foreground mt-2 text-center">
+                  Email functionality will be available soon.
+                </p>
               </form>
             </GlassCard>
           </motion.div>
