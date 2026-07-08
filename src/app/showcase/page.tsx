@@ -8,22 +8,22 @@ import { Play, ExternalLink, GitBranch } from "lucide-react";
 
 const projects = [
   {
-    title: "E-Commerce Experience",
-    description: "A high-performance headless e-commerce storefront with complex animations and perfect Lighthouse scores.",
-    tags: ["Next.js", "Tailwind CSS", "Framer Motion", "Shopify"],
-    videoPlaceholder: "bg-gradient-to-br from-indigo-500/20 to-purple-500/20",
+    title: "Introduction to Web3",
+    description: "Understanding Web3, decentralization, wallets and blockchain.",
+    tags: ["Blockchain", "Web3", "Wallets", "Decentralization"],
+    videoPlaceholder: "bg-[url('https://img.youtube.com/vi/M1-AmTsrU3A/maxresdefault.jpg')] bg-cover bg-center",
   },
   {
-    title: "FinTech Dashboard",
-    description: "Real-time financial dashboard with complex data visualization, WebSockets, and elegant dark mode.",
-    tags: ["React", "TypeScript", "Recharts", "Zustand"],
-    videoPlaceholder: "bg-gradient-to-br from-blue-500/20 to-cyan-500/20",
+    title: "Rust Programming Fundamentals",
+    description: "Learning Rust fundamentals including ownership, borrowing and memory safety.",
+    tags: ["Ownership", "Borrowing", "Lifetimes", "Cargo"],
+    videoPlaceholder: "bg-[url('https://img.youtube.com/vi/9cALHJ1gzME/maxresdefault.jpg')] bg-cover bg-center",
   },
   {
-    title: "AI Collaboration Tool",
-    description: "Real-time collaborative canvas powered by AI, featuring infinite scroll and cursor tracking.",
-    tags: ["Next.js", "Canvas API", "Socket.io", "OpenAI"],
-    videoPlaceholder: "bg-gradient-to-br from-emerald-500/20 to-teal-500/20",
+    title: "Smart Contracts with Stylus",
+    description: "Building smart contracts on Arbitrum using Stylus and Rust.",
+    tags: ["Stylus", "Smart Contracts", "Arbitrum", "Rust"],
+    videoPlaceholder: "bg-[url('https://img.youtube.com/vi/Wpdadlx3j_o/maxresdefault.jpg')] bg-cover bg-center",
   },
 ];
 
@@ -32,8 +32,8 @@ export default function Showcase() {
     <PageTransition>
       <div className="container mx-auto px-6 py-24">
         <SectionHeading
-          title="Selected Work"
-          subtitle="A showcase of premium frontend applications built with modern tools."
+          title="Featured Learning Sessions"
+          subtitle="A curated collection of seminars and technical sessions from my Blockchain, Rust, and Arbitrum learning journey."
         />
 
         <div className="flex flex-col gap-24 mt-20">
@@ -83,10 +83,10 @@ export default function Showcase() {
 
                     <div className="flex items-center gap-4 mt-auto">
                       <a href="#" className="inline-flex items-center gap-2 text-sm font-semibold hover:text-primary transition-colors interactive">
-                        <ExternalLink className="w-4 h-4" /> Live Demo
+                        <ExternalLink className="w-4 h-4" /> Watch Session
                       </a>
                       <a href="#" className="inline-flex items-center gap-2 text-sm font-semibold hover:text-primary transition-colors interactive">
-                        <GitBranch className="w-4 h-4" /> Source Code
+                        <GitBranch className="w-4 h-4" /> My Notes
                       </a>
                     </div>
                   </div>
